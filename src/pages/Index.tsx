@@ -9,6 +9,16 @@ import { Separator } from '@/components/ui/separator';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
+  const [calculatorData, setCalculatorData] = useState({
+    pileType: 'С 60.30-5',
+    quantity: 10,
+    distance: 0,
+  });
+  const [calculatorResult, setCalculatorResult] = useState<{
+    pilesTotal: number;
+    deliveryTotal: number;
+    total: number;
+  } | null>(null);
 
   const products = [
     {
@@ -17,6 +27,7 @@ const Index = () => {
       length: '6 метров',
       diameter: '300 мм',
       price: 'от 4 500 ₽',
+      priceValue: 4500,
       description: 'Для малоэтажного строительства',
     },
     {
@@ -25,6 +36,7 @@ const Index = () => {
       length: '8 метров',
       diameter: '300 мм',
       price: 'от 6 800 ₽',
+      priceValue: 6800,
       description: 'Для частных домов и коттеджей',
     },
     {
@@ -33,6 +45,7 @@ const Index = () => {
       length: '10 метров',
       diameter: '300 мм',
       price: 'от 8 200 ₽',
+      priceValue: 8200,
       description: 'Для промышленного строительства',
     },
     {
@@ -41,9 +54,32 @@ const Index = () => {
       length: '12 метров',
       diameter: '350 мм',
       price: 'от 12 500 ₽',
+      priceValue: 12500,
       description: 'Для многоэтажных зданий',
     },
   ];
+
+  const calculatePrice = () => {
+    const selectedProduct = products.find(p => p.type === calculatorData.pileType);
+    if (!selectedProduct) return;
+
+    const pilesTotal = selectedProduct.priceValue * calculatorData.quantity;
+    let deliveryTotal = 0;
+
+    if (calculatorData.distance > 0 && calculatorData.distance <= 50) {
+      deliveryTotal = 2000;
+    } else if (calculatorData.distance > 50 && calculatorData.distance <= 100) {
+      deliveryTotal = 3500;
+    } else if (calculatorData.distance > 100) {
+      deliveryTotal = 3500 + (calculatorData.distance - 100) * 30;
+    }
+
+    setCalculatorResult({
+      pilesTotal,
+      deliveryTotal,
+      total: pilesTotal + deliveryTotal,
+    });
+  };
 
   const reviews = [
     {
@@ -202,6 +238,93 @@ const Index = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </section>
+
+      <section className="py-20 bg-accent/5 border-y border-accent/10">
+        <div className="container max-w-4xl">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-3">Калькулятор стоимости</h2>
+            <p className="text-muted-foreground">Рассчитайте предварительную стоимость свай с доставкой</p>
+          </div>
+          <Card className="border-accent/20">
+            <CardContent className="pt-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Тип сваи</label>
+                  <select
+                    className="w-full h-10 px-3 rounded-md border border-input bg-background text-sm"
+                    value={calculatorData.pileType}
+                    onChange={(e) => {
+                      setCalculatorData({ ...calculatorData, pileType: e.target.value });
+                      setCalculatorResult(null);
+                    }}
+                  >
+                    {products.map((product) => (
+                      <option key={product.type} value={product.type}>
+                        {product.type} ({product.length})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Количество (шт)</label>
+                  <Input
+                    type="number"
+                    min="1"
+                    value={calculatorData.quantity}
+                    onChange={(e) => {
+                      setCalculatorData({ ...calculatorData, quantity: parseInt(e.target.value) || 1 });
+                      setCalculatorResult(null);
+                    }}
+                  />
+                </div>
+                <div>
+                  <label className="text-sm font-medium mb-2 block">Расстояние (км)</label>
+                  <Input
+                    type="number"
+                    min="0"
+                    value={calculatorData.distance}
+                    onChange={(e) => {
+                      setCalculatorData({ ...calculatorData, distance: parseInt(e.target.value) || 0 });
+                      setCalculatorResult(null);
+                    }}
+                  />
+                </div>
+              </div>
+              <Button
+                className="w-full bg-accent hover:bg-accent/90 mb-6"
+                size="lg"
+                onClick={calculatePrice}
+              >
+                <Icon name="Calculator" size={20} className="mr-2" />
+                Рассчитать стоимость
+              </Button>
+              {calculatorResult && (
+                <div className="bg-muted/50 rounded-lg p-6 space-y-3 animate-fade-in">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Стоимость свай:</span>
+                    <span className="font-semibold text-lg">{calculatorResult.pilesTotal.toLocaleString('ru-RU')} ₽</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Доставка:</span>
+                    <span className="font-semibold text-lg">
+                      {calculatorResult.deliveryTotal === 0 ? 'Бесплатно' : `${calculatorResult.deliveryTotal.toLocaleString('ru-RU')} ₽`}
+                    </span>
+                  </div>
+                  <Separator className="bg-accent/20" />
+                  <div className="flex justify-between items-center pt-2">
+                    <span className="text-lg font-semibold">Итого:</span>
+                    <span className="text-3xl font-bold text-accent">{calculatorResult.total.toLocaleString('ru-RU')} ₽</span>
+                  </div>
+                  <p className="text-xs text-muted-foreground text-center pt-2">
+                    * Точная стоимость уточняется у менеджера
+                  </p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </div>
       </section>
 
