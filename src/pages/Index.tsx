@@ -164,15 +164,17 @@ const Index = () => {
 
       <section
         id="home"
-        className="relative min-h-[600px] flex items-center justify-center bg-gradient-to-br from-primary via-primary/95 to-primary/90 text-primary-foreground overflow-hidden"
+        className="relative min-h-[600px] flex items-center justify-center text-primary-foreground overflow-hidden"
       >
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-secondary to-primary/90 bg-[length:200%_200%] animate-gradient-shift" />
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
+          className="absolute inset-0 bg-cover bg-center opacity-15 animate-float"
           style={{
             backgroundImage:
               'url(https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/6a22b3cd-ae24-4fa3-a7a9-628f6ec671c0.jpg)',
           }}
         />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(249,115,22,0.1),transparent_50%)]" />
         <div className="container relative z-10 text-center py-20">
           <Badge className="mb-4 bg-accent text-accent-foreground hover:bg-accent/90">
             Работаем с 2010 года
