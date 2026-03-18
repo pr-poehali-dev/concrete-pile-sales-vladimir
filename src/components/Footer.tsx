@@ -31,9 +31,9 @@ const Footer = ({ scrollToSection }: FooterProps) => {
           <div>
             <h4 className="font-semibold mb-4">Контакты</h4>
             <div className="space-y-2 text-sm">
-              <a href="tel:+74922123456" className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors">
+              <a href="tel:+79157771550" className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors">
                 <Icon name="Phone" size={16} />
-                +7 (4922) 12-34-56
+                +7 (915) 777-15-50
               </a>
               <a href="mailto:info@svaivladimir.ru" className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors">
                 <Icon name="Mail" size={16} />

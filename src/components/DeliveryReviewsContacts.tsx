@@ -193,8 +193,8 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Телефон</p>
-                      <a href="tel:+74922123456" className="text-muted-foreground hover:text-accent transition-colors">
-                        +7 (4922) 12-34-56
+                      <a href="tel:+79157771550" className="text-muted-foreground hover:text-accent transition-colors">
+                        +7 (915) 777-15-50
                       </a>
                     </div>
                   </div>

@@ -32,7 +32,7 @@ const Header = ({ scrollToSection }: HeaderProps) => {
         </nav>
         <div className="flex items-center gap-2">
           <Icon name="Phone" size={20} className="text-accent" />
-          <a href="tel:+74922123456" className="text-sm font-semibold">+7 (4922) 12-34-56</a>
+          <a href="tel:+79157771550" className="text-sm font-semibold">+7 (915) 777-15-50</a>
         </div>
       </div>
     </header>
