@@ -12,8 +12,8 @@ const Index = () => {
     {
       name: 'Сваи забивные железобетонные',
       type: 'С40-15',
-      length: '15 метров',
-      diameter: '400 мм',
+      length: '4 метра',
+      diameter: '150 мм',
       price: 'по запросу',
       priceValue: 0,
       description: 'Для малоэтажного строительства',
@@ -21,8 +21,8 @@ const Index = () => {
     {
       name: 'Сваи забивные железобетонные',
       type: 'С30-15',
-      length: '15 метров',
-      diameter: '300 мм',
+      length: '3 метра',
+      diameter: '150 мм',
       price: 'по запросу',
       priceValue: 0,
       description: 'Для частных домов и коттеджей',
@@ -30,8 +30,8 @@ const Index = () => {
     {
       name: 'Сваи забивные железобетонные',
       type: 'С40-20',
-      length: '20 метров',
-      diameter: '400 мм',
+      length: '4 метра',
+      diameter: '200 мм',
       price: 'по запросу',
       priceValue: 0,
       description: 'Для промышленного строительства',
@@ -39,8 +39,8 @@ const Index = () => {
     {
       name: 'Сваи забивные железобетонные',
       type: 'С30-20',
-      length: '20 метров',
-      diameter: '300 мм',
+      length: '3 метра',
+      diameter: '200 мм',
       price: 'по запросу',
       priceValue: 0,
       description: 'Для многоэтажных зданий',
