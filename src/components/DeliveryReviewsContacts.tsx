@@ -1,10 +1,16 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import Icon from '@/components/ui/icon';
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import Icon from "@/components/ui/icon";
 
 interface Review {
   company: string;
@@ -47,12 +53,12 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                 <Separator />
                 <div className="flex justify-between items-center">
                   <span className="font-medium">До 50 км</span>
-                  <span className="text-muted-foreground">от 2 000 ₽</span>
+                  <span className="text-muted-foreground">от 0,0 ₽</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
                   <span className="font-medium">До 100 км</span>
-                  <span className="text-muted-foreground">от 3 500 ₽</span>
+                  <span className="text-muted-foreground">от 0,0 ₽</span>
                 </div>
                 <Separator />
                 <div className="flex justify-between items-center">
@@ -89,7 +95,9 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                 <Separator />
                 <div className="flex justify-between items-center">
                   <span className="font-medium">График</span>
-                  <span className="text-muted-foreground">Пн-Сб 8:00-18:00</span>
+                  <span className="text-muted-foreground">
+                    Пн-Сб 8:00-18:00
+                  </span>
                 </div>
               </CardContent>
             </Card>
@@ -102,12 +110,17 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                   <Icon name="Info" size={32} className="text-accent" />
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-lg font-semibold mb-2">Особые условия для строительных компаний</h3>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Особые условия для строительных компаний
+                  </h3>
                   <p className="text-muted-foreground">
-                    Для постоянных клиентов и крупных заказов предоставляем скидки до 15%, отсрочку платежа и бесплатную доставку
+                    Для постоянных клиентов и крупных заказов предоставляем
+                    скидки до 15%, отсрочку платежа и бесплатную доставку
                   </p>
                 </div>
-                <Button className="bg-accent hover:bg-accent/90">Узнать подробнее</Button>
+                <Button className="bg-accent hover:bg-accent/90">
+                  Узнать подробнее
+                </Button>
               </div>
             </CardContent>
           </Card>
@@ -128,7 +141,12 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                 <CardHeader>
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(review.rating)].map((_, i) => (
-                      <Icon key={i} name="Star" size={16} className="text-accent fill-accent" />
+                      <Icon
+                        key={i}
+                        name="Star"
+                        size={16}
+                        className="text-accent fill-accent"
+                      />
                     ))}
                   </div>
                   <CardTitle className="text-base">{review.company}</CardTitle>
@@ -137,7 +155,9 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground italic">"{review.text}"</p>
+                  <p className="text-sm text-muted-foreground italic">
+                    "{review.text}"
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -157,23 +177,37 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
             <Card>
               <CardHeader>
                 <CardTitle className="text-2xl">Оставьте заявку</CardTitle>
-                <CardDescription>Мы свяжемся с вами в течение 15 минут</CardDescription>
+                <CardDescription>
+                  Мы свяжемся с вами в течение 15 минут
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <form className="space-y-4">
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Ваше имя</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Ваше имя
+                    </label>
                     <Input placeholder="Иван Иванов" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Телефон</label>
+                    <label className="text-sm font-medium mb-2 block">
+                      Телефон
+                    </label>
                     <Input type="tel" placeholder="+7 (___) ___-__-__" />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Комментарий (необязательно)</label>
-                    <Textarea placeholder="Расскажите о вашем проекте..." rows={4} />
+                    <label className="text-sm font-medium mb-2 block">
+                      Комментарий (необязательно)
+                    </label>
+                    <Textarea
+                      placeholder="Расскажите о вашем проекте..."
+                      rows={4}
+                    />
                   </div>
-                  <Button className="w-full bg-accent hover:bg-accent/90" size="lg">
+                  <Button
+                    className="w-full bg-accent hover:bg-accent/90"
+                    size="lg"
+                  >
                     <Icon name="Send" size={20} className="mr-2" />
                     Отправить заявку
                   </Button>
@@ -193,7 +227,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Телефон</p>
-                      <a href="tel:+79157771550" className="text-muted-foreground hover:text-accent transition-colors">
+                      <a
+                        href="tel:+79157771550"
+                        className="text-muted-foreground hover:text-accent transition-colors"
+                      >
                         +7 (915) 777-15-50
                       </a>
                     </div>
@@ -205,7 +242,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Email</p>
-                      <a href="mailto:info@svaivladimir.ru" className="text-muted-foreground hover:text-accent transition-colors">
+                      <a
+                        href="mailto:info@svaivladimir.ru"
+                        className="text-muted-foreground hover:text-accent transition-colors"
+                      >
                         info@svaivladimir.ru
                       </a>
                     </div>
@@ -217,7 +257,9 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Адрес</p>
-                      <p className="text-muted-foreground">г. Владимир, ул. Промышленная, 15</p>
+                      <p className="text-muted-foreground">
+                        г. Владимир, ул. Промышленная, 15
+                      </p>
                     </div>
                   </div>
                   <Separator />
@@ -227,7 +269,9 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Режим работы</p>
-                      <p className="text-muted-foreground">Пн-Пт: 8:00 - 18:00</p>
+                      <p className="text-muted-foreground">
+                        Пн-Пт: 8:00 - 18:00
+                      </p>
                       <p className="text-muted-foreground">Сб: 9:00 - 15:00</p>
                       <p className="text-muted-foreground">Вс: выходной</p>
                     </div>
@@ -240,8 +284,12 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                   <div className="flex items-center gap-4">
                     <Icon name="Headphones" size={40} className="text-accent" />
                     <div>
-                      <h3 className="font-semibold text-lg mb-1">Бесплатная консультация</h3>
-                      <p className="text-sm text-primary-foreground/80">Поможем подобрать сваи под ваш проект</p>
+                      <h3 className="font-semibold text-lg mb-1">
+                        Бесплатная консультация
+                      </h3>
+                      <p className="text-sm text-primary-foreground/80">
+                        Поможем подобрать сваи под ваш проект
+                      </p>
                     </div>
                   </div>
                 </CardContent>
