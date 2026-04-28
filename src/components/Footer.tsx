@@ -1,5 +1,5 @@
-import Icon from '@/components/ui/icon';
-import { Separator } from '@/components/ui/separator';
+import Icon from "@/components/ui/icon";
+import { Separator } from "@/components/ui/separator";
 
 interface FooterProps {
   scrollToSection: (section: string) => void;
@@ -16,28 +16,55 @@ const Footer = ({ scrollToSection }: FooterProps) => {
               <span className="text-xl font-bold">СваиВладимир</span>
             </div>
             <p className="text-primary-foreground/80 text-sm">
-              Надёжный поставщик бетонных свай для профессионального строительства с 2010 года
+              Надёжный поставщик бетонных свай для профессионального
+              строительства с 2010 года
             </p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Навигация</h4>
             <nav className="space-y-2 text-sm">
-              <button onClick={() => scrollToSection('catalog')} className="block text-primary-foreground/80 hover:text-accent transition-colors">Каталог</button>
-              <button onClick={() => scrollToSection('delivery')} className="block text-primary-foreground/80 hover:text-accent transition-colors">Доставка</button>
-              <button onClick={() => scrollToSection('reviews')} className="block text-primary-foreground/80 hover:text-accent transition-colors">Отзывы</button>
-              <button onClick={() => scrollToSection('contacts')} className="block text-primary-foreground/80 hover:text-accent transition-colors">Контакты</button>
+              <button
+                onClick={() => scrollToSection("catalog")}
+                className="block text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                Каталог
+              </button>
+              <button
+                onClick={() => scrollToSection("delivery")}
+                className="block text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                Доставка
+              </button>
+              <button
+                onClick={() => scrollToSection("reviews")}
+                className="block text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                Отзывы
+              </button>
+              <button
+                onClick={() => scrollToSection("contacts")}
+                className="block text-primary-foreground/80 hover:text-accent transition-colors"
+              >
+                Контакты
+              </button>
             </nav>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Контакты</h4>
             <div className="space-y-2 text-sm">
-              <a href="tel:+79157771550" className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors">
+              <a
+                href="tel:+79157771550"
+                className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
+              >
                 <Icon name="Phone" size={16} />
                 +7 (915) 777-15-50
               </a>
-              <a href="mailto:info@svaivladimir.ru" className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors">
+              <a
+                href="mailto:info@svaivladimir.ru"
+                className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
+              >
                 <Icon name="Mail" size={16} />
-                info@svaivladimir.ru
+                merik.mametkuliyew@gmail.com
               </a>
               <p className="flex items-center gap-2 text-primary-foreground/80">
                 <Icon name="MapPin" size={16} />
