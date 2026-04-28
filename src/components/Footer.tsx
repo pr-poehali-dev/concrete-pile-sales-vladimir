@@ -75,7 +75,7 @@ const Footer = ({ scrollToSection }: FooterProps) => {
         </div>
         <Separator className="bg-primary-foreground/20 mb-8" />
         <div className="text-center text-sm text-primary-foreground/60">
-          © 2024 СваиВладимир. Все права защищены.
+          © 2026 СваиВладимир. Все права защищены.
         </div>
       </div>
     </footer>
