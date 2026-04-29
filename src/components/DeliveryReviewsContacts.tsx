@@ -86,7 +86,11 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setOpen(true)}>
+            <Button
+              size="lg"
+              className="bg-accent hover:bg-accent/90"
+              onClick={() => setOpen(true)}
+            >
               <Icon name="MessageSquarePlus" size={20} className="mr-2" />
               Оставить отзыв
             </Button>
@@ -100,23 +104,55 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
               {submitted ? (
                 <div className="text-center py-8">
                   <div className="p-4 bg-accent/10 rounded-full w-fit mx-auto mb-4">
-                    <Icon name="CheckCircle" size={40} className="text-accent" />
+                    <Icon
+                      name="CheckCircle"
+                      size={40}
+                      className="text-accent"
+                    />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2">Спасибо за отзыв!</h3>
-                  <p className="text-muted-foreground mb-6">Мы ценим ваше мнение и обязательно его опубликуем.</p>
-                  <Button onClick={handleClose} className="bg-accent hover:bg-accent/90">Закрыть</Button>
+                  <h3 className="text-lg font-semibold mb-2">
+                    Спасибо за отзыв!
+                  </h3>
+                  <p className="text-muted-foreground mb-6">
+                    Мы ценим ваше мнение и обязательно его опубликуем.
+                  </p>
+                  <Button
+                    onClick={handleClose}
+                    className="bg-accent hover:bg-accent/90"
+                  >
+                    Закрыть
+                  </Button>
                 </div>
               ) : (
                 <form className="space-y-4 mt-2" onSubmit={handleSubmit}>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Ваше имя</label>
-                    <Input placeholder="Иван Иванов" value={name} onChange={e => setName(e.target.value)} required />
+                    <label className="text-sm font-medium mb-2 block">
+                      Ваше имя
+                    </label>
+                    <Input
+                      placeholder="Иван Иванов"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
                   </div>
                   <div>
-                    <label className="text-sm font-medium mb-2 block">Ваш отзыв</label>
-                    <Textarea placeholder="Расскажите о вашем опыте работы с нами..." rows={5} value={text} onChange={e => setText(e.target.value)} required />
+                    <label className="text-sm font-medium mb-2 block">
+                      Ваш отзыв
+                    </label>
+                    <Textarea
+                      placeholder="Расскажите о вашем опыте работы с нами..."
+                      rows={5}
+                      value={text}
+                      onChange={(e) => setText(e.target.value)}
+                      required
+                    />
                   </div>
-                  <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
+                  <Button
+                    type="submit"
+                    className="w-full bg-accent hover:bg-accent/90"
+                    size="lg"
+                  >
                     <Icon name="Send" size={18} className="mr-2" />
                     Отправить
                   </Button>
@@ -205,7 +241,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     <div>
                       <p className="font-semibold">Email</p>
                       <a
-                        href="mailto:info@svaivladimir.ru"
+                        href="mailto:vladsvai@bk.ru"
                         className="text-muted-foreground hover:text-accent transition-colors"
                       >
                         vladsvai@bk.ru
@@ -220,7 +256,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     <div>
                       <p className="font-semibold">Адрес</p>
                       <p className="text-muted-foreground">
-                        г. Владимир, ул. Промышленная, 15
+                        г. Владимир, ул. Промышленный проезд 5Б
                       </p>
                     </div>
                   </div>
