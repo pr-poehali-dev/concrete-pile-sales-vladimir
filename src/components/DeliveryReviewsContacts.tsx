@@ -61,6 +61,12 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
               </Card>
             ))}
           </div>
+          <div className="text-center mt-10">
+            <Button size="lg" className="bg-accent hover:bg-accent/90">
+              <Icon name="MessageSquarePlus" size={20} className="mr-2" />
+              Оставить отзыв
+            </Button>
+          </div>
         </div>
       </section>
 
