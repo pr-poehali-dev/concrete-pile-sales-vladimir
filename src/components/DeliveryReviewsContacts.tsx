@@ -8,8 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import Icon from "@/components/ui/icon";
 
 interface Review {
@@ -27,106 +25,6 @@ interface DeliveryReviewsContactsProps {
 const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
   return (
     <>
-      <section id="delivery" className="py-20">
-        <div className="container">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4">Доставка</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Оперативная доставка по Владимиру и Владимирской области
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-3 bg-accent/10 rounded-lg">
-                    <Icon name="MapPin" size={24} className="text-accent" />
-                  </div>
-                  <CardTitle>Зоны доставки</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">г. Владимир</span>
-                  <Badge>Бесплатно</Badge>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">До 50 км</span>
-                  <span className="text-muted-foreground">от 0,0 ₽</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">До 100 км</span>
-                  <span className="text-muted-foreground">от 0,0 ₽</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Более 100 км</span>
-                  <span className="text-muted-foreground">договорная</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-3 bg-accent/10 rounded-lg">
-                    <Icon name="Clock" size={24} className="text-accent" />
-                  </div>
-                  <CardTitle>Сроки доставки</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">В наличии</span>
-                  <Badge variant="secondary">1-2 дня</Badge>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Под заказ</span>
-                  <span className="text-muted-foreground">3-7 дней</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">Срочный заказ</span>
-                  <span className="text-muted-foreground">в день заказа</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between items-center">
-                  <span className="font-medium">График</span>
-                  <span className="text-muted-foreground">
-                    Пн-Сб 8:00-18:00
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <Card className="mt-8 max-w-5xl mx-auto bg-accent/5 border-accent/20">
-            <CardContent className="pt-6">
-              <div className="flex flex-col md:flex-row items-center gap-6">
-                <div className="p-4 bg-accent/10 rounded-full">
-                  <Icon name="Info" size={32} className="text-accent" />
-                </div>
-                <div className="flex-1 text-center md:text-left">
-                  <h3 className="text-lg font-semibold mb-2">
-                    Особые условия для строительных компаний
-                  </h3>
-                  <p className="text-muted-foreground">
-                    Для постоянных клиентов и крупных заказов предоставляем
-                    скидки до 15%, отсрочку платежа и бесплатную доставку
-                  </p>
-                </div>
-                <Button className="bg-accent hover:bg-accent/90">
-                  Узнать подробнее
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
       <section id="reviews" className="py-20 bg-muted/30">
         <div className="container">
           <div className="text-center mb-12">

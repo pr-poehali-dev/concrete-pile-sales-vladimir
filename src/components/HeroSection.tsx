@@ -30,8 +30,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
           Бетонные СВАИ во Владимире
         </h1>
         <p className="text-xl md:text-2xl mb-8 text-primary-foreground/90 max-w-3xl mx-auto">
-          Надёжный фундамент для вашего строительства. Доставка от 1 дня.
-          Гарантия качества.
+          Надёжный фундамент для вашего строительства. Гарантия качества.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <Button
@@ -53,21 +52,6 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
           </Button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
-          <Card className="border-primary-foreground/20 bg-background/10 backdrop-blur">
-            <CardContent className="pt-6 text-center">
-              <Icon
-                name="Truck"
-                size={48}
-                className="mx-auto mb-4 text-accent"
-              />
-              <h3 className="text-lg font-semibold mb-2 text-primary-foreground">
-                Доставка от 1 дня
-              </h3>
-              <p className="text-sm text-primary-foreground/80">
-                По Владимиру и области
-              </p>
-            </CardContent>
-          </Card>
           <Card className="border-primary-foreground/20 bg-background/10 backdrop-blur">
             <CardContent className="pt-6 text-center">
               <Icon
