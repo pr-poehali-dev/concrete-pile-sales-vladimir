@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,6 +7,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
@@ -24,6 +31,23 @@ interface DeliveryReviewsContactsProps {
 }
 
 const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [text, setText] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSubmitted(false);
+    setName("");
+    setText("");
+  };
+
   return (
     <>
       <section id="reviews" className="py-20 bg-muted/30">
@@ -62,11 +86,44 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
             ))}
           </div>
           <div className="text-center mt-10">
-            <Button size="lg" className="bg-accent hover:bg-accent/90">
+            <Button size="lg" className="bg-accent hover:bg-accent/90" onClick={() => setOpen(true)}>
               <Icon name="MessageSquarePlus" size={20} className="mr-2" />
               Оставить отзыв
             </Button>
           </div>
+
+          <Dialog open={open} onOpenChange={handleClose}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>Оставить отзыв</DialogTitle>
+              </DialogHeader>
+              {submitted ? (
+                <div className="text-center py-8">
+                  <div className="p-4 bg-accent/10 rounded-full w-fit mx-auto mb-4">
+                    <Icon name="CheckCircle" size={40} className="text-accent" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Спасибо за отзыв!</h3>
+                  <p className="text-muted-foreground mb-6">Мы ценим ваше мнение и обязательно его опубликуем.</p>
+                  <Button onClick={handleClose} className="bg-accent hover:bg-accent/90">Закрыть</Button>
+                </div>
+              ) : (
+                <form className="space-y-4 mt-2" onSubmit={handleSubmit}>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Ваше имя</label>
+                    <Input placeholder="Иван Иванов" value={name} onChange={e => setName(e.target.value)} required />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium mb-2 block">Ваш отзыв</label>
+                    <Textarea placeholder="Расскажите о вашем опыте работы с нами..." rows={5} value={text} onChange={e => setText(e.target.value)} required />
+                  </div>
+                  <Button type="submit" className="w-full bg-accent hover:bg-accent/90" size="lg">
+                    <Icon name="Send" size={18} className="mr-2" />
+                    Отправить
+                  </Button>
+                </form>
+              )}
+            </DialogContent>
+          </Dialog>
         </div>
       </section>
 
