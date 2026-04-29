@@ -246,7 +246,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                         href="mailto:info@svaivladimir.ru"
                         className="text-muted-foreground hover:text-accent transition-colors"
                       >
-                        merik.mametkuliyew@gmail.com
+                        vladsvai@bk.ru
                       </a>
                     </div>
                   </div>
