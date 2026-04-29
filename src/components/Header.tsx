@@ -26,7 +26,7 @@ const Header = ({ scrollToSection }: HeaderProps) => {
         <nav className="hidden md:flex gap-6">
           <button onClick={() => scrollToSection('home')} className="text-sm font-medium hover:text-accent transition-colors">Главная</button>
           <button onClick={() => scrollToSection('catalog')} className="text-sm font-medium hover:text-accent transition-colors">Каталог</button>
-          <button onClick={() => scrollToSection('reviews')} className="text-sm font-medium hover:text-accent transition-colors">Отзывы</button>
+          <button onClick={() => scrollToSection('reviews')} className="text-sm font-medium hover:text-accent transition-colors">Отзывы клиентов</button>
           <button onClick={() => scrollToSection('contacts')} className="text-sm font-medium hover:text-accent transition-colors">Контакты</button>
         </nav>
         <div className="flex items-center gap-2">

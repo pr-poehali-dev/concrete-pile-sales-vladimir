@@ -33,7 +33,7 @@ const Footer = ({ scrollToSection }: FooterProps) => {
                 onClick={() => scrollToSection("reviews")}
                 className="block text-primary-foreground/80 hover:text-accent transition-colors"
               >
-                Отзывы
+                Отзывы клиентов
               </button>
               <button
                 onClick={() => scrollToSection("contacts")}
