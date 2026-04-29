@@ -268,10 +268,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     <div>
                       <p className="font-semibold">Режим работы</p>
                       <p className="text-muted-foreground">
-                        Пн-Пт: 8:00 - 18:00
+                        Пн-Вс: 8:00 - 20:00
                       </p>
-                      <p className="text-muted-foreground">Сб: 9:00 - 15:00</p>
-                      <p className="text-muted-foreground">Вс: выходной</p>
+                      <p className="text-muted-foreground"></p>
+                      <p className="text-muted-foreground"></p>
                     </div>
                   </div>
                 </CardContent>
