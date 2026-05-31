@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import HeroSection from '@/components/HeroSection';
@@ -6,8 +5,6 @@ import CatalogSection from '@/components/CatalogSection';
 import DeliveryReviewsContacts from '@/components/DeliveryReviewsContacts';
 
 const Index = () => {
-  const [activeSection, setActiveSection] = useState('home');
-
   const products = [
     {
       name: 'Сваи забивные железобетонные',
@@ -15,7 +12,6 @@ const Index = () => {
       length: '4 метра',
       diameter: '150 мм',
       price: 'по запросу',
-      priceValue: 0,
       description: 'Для малоэтажного строительства',
     },
     {
@@ -24,7 +20,6 @@ const Index = () => {
       length: '3 метра',
       diameter: '150 мм',
       price: 'по запросу',
-      priceValue: 0,
       description: 'Для частных домов и коттеджей',
     },
     {
@@ -33,7 +28,6 @@ const Index = () => {
       length: '4 метра',
       diameter: '200 мм',
       price: 'по запросу',
-      priceValue: 0,
       description: 'Для промышленного строительства',
     },
     {
@@ -42,15 +36,13 @@ const Index = () => {
       length: '3 метра',
       diameter: '200 мм',
       price: 'по запросу',
-      priceValue: 0,
       description: 'Для многоэтажных зданий',
     },
   ];
 
-  const reviews = [];
+  const reviews: never[] = [];
 
   const scrollToSection = (section: string) => {
-    setActiveSection(section);
     const element = document.getElementById(section);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });

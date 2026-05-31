@@ -41,11 +41,13 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
     setSubmitted(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setSubmitted(false);
-    setName("");
-    setText("");
+  const handleClose = (isOpen: boolean) => {
+    if (!isOpen) {
+      setOpen(false);
+      setSubmitted(false);
+      setName("");
+      setText("");
+    }
   };
 
   return (
@@ -117,7 +119,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     Мы ценим ваше мнение и обязательно его опубликуем.
                   </p>
                   <Button
-                    onClick={handleClose}
+                    onClick={() => handleClose(false)}
                     className="bg-accent hover:bg-accent/90"
                   >
                     Закрыть
