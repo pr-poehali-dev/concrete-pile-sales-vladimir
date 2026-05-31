@@ -54,7 +54,7 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
                 <Separator className="my-4" />
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-accent">{product.price}</span>
-                  <Button size="sm" onClick={() => scrollToSection('contacts')}>Заказать</Button>
+                  <Button size="sm" onClick={() => scrollToSection('contacts')} className="bg-accent text-accent-foreground shadow-[3px_3px_0px_#92660a] hover:shadow-[1px_1px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-150 font-bold">Заказать</Button>
                 </div>
               </CardContent>
             </Card>
