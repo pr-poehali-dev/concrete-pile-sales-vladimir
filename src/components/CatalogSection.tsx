@@ -31,7 +31,7 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
-            <Card key={index} className="hover:shadow-lg transition-all hover:scale-105 duration-200">
+            <Card key={index} className="hover:shadow-lg transition-all hover:scale-105 duration-200 bg-[#2e2e2e] border-[#3a3a3a]">
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <Badge variant="outline" className="text-xs">{product.type}</Badge>
