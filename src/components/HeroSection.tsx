@@ -51,7 +51,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
             Получить консультацию
           </Button>
         </div>
-        <div className="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto mt-16 justify-center">
+        <div className="flex flex-col md:flex-row gap-6 max-w-4xl mx-auto mt-16 justify-center">
           <Card className="border-primary-foreground/20 bg-background/10 backdrop-blur">
             <CardContent className="pt-6 text-center">
               <Icon
@@ -79,6 +79,21 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
               </h3>
               <p className="text-sm text-primary-foreground/80">
                 Довольных клиентов
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-primary-foreground/20 bg-background/10 backdrop-blur">
+            <CardContent className="pt-6 text-center">
+              <Icon
+                name="MapPin"
+                size={48}
+                className="mx-auto mb-4 text-accent"
+              />
+              <h3 className="text-lg font-semibold mb-2 text-primary-foreground">
+                Владимирская область
+              </h3>
+              <p className="text-sm text-primary-foreground/80">
+                Работаем по всему региону
               </p>
             </CardContent>
           </Card>
