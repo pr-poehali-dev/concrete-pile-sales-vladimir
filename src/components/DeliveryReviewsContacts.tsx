@@ -90,10 +90,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
           <div className="text-center mt-10">
             <Button
               size="lg"
-              className="bg-accent hover:bg-accent/90"
               onClick={() => setOpen(true)}
+              className="bg-accent text-accent-foreground font-bold text-base px-8 py-6 shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
             >
-              <Icon name="MessageSquarePlus" size={20} className="mr-2" />
+              <Icon name="MessageSquarePlus" size={22} className="mr-2" />
               Оставить отзыв
             </Button>
           </div>
@@ -205,7 +205,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     />
                   </div>
                   <Button
-                    className="w-full bg-accent hover:bg-accent/90"
+                    className="w-full bg-accent text-accent-foreground font-bold text-base shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
                     size="lg"
                   >
                     <Icon name="Send" size={20} className="mr-2" />
