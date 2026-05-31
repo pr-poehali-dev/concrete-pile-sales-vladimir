@@ -35,7 +35,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <Button
             size="lg"
-            className="bg-accent hover:bg-accent/90 text-accent-foreground text-lg px-8"
+            className="bg-accent text-accent-foreground font-bold text-base px-8 py-6 shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
             onClick={() => scrollToSection("catalog")}
           >
             <Icon name="Package" size={20} className="mr-2" />
