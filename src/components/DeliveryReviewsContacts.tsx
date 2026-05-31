@@ -229,7 +229,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                       <p className="font-semibold">Телефон</p>
                       <a
                         href="tel:+79157771550"
-                        className="text-muted-foreground hover:text-accent transition-colors"
+                        className="text-foreground font-medium hover:text-accent transition-colors"
                       >
                         +7 (915) 777-15-50
                       </a>
@@ -244,7 +244,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                       <p className="font-semibold">Email</p>
                       <a
                         href="mailto:vladsvai@bk.ru"
-                        className="text-muted-foreground hover:text-accent transition-colors"
+                        className="text-foreground font-medium hover:text-accent transition-colors"
                       >
                         vladsvai@bk.ru
                       </a>
@@ -257,7 +257,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Адрес</p>
-                      <p className="text-muted-foreground">
+                      <p className="text-foreground font-medium">
                         г. Владимир, ул. Промышленный проезд 5Б
                       </p>
                     </div>
@@ -269,11 +269,9 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <div>
                       <p className="font-semibold">Режим работы</p>
-                      <p className="text-muted-foreground">
+                      <p className="text-foreground font-medium">
                         Пн-Вс: 8:00 - 20:00
                       </p>
-                      <p className="text-muted-foreground"></p>
-                      <p className="text-muted-foreground"></p>
                     </div>
                   </div>
                 </CardContent>
