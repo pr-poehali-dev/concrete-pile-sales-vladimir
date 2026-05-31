@@ -51,7 +51,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
             Получить консультацию
           </Button>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mt-16">
+        <div className="flex flex-col md:flex-row gap-6 max-w-2xl mx-auto mt-16 justify-center">
           <Card className="border-primary-foreground/20 bg-background/10 backdrop-blur">
             <CardContent className="pt-6 text-center">
               <Icon
