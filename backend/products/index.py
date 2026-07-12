@@ -57,13 +57,13 @@ def handler(event: dict, context) -> dict:
         if method == 'POST':
             body = json.loads(event.get('body') or '{}')
             cur.execute(
-                """INSERT INTO products (name, type, length, diameter, price, description, sort_order, is_active)
-                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s) RETURNING *""",
+                """INSERT INTO products (name, type, length, diameter, price, description, sort_order, is_active, image_url)
+                   VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) RETURNING *""",
                 (
                     body.get('name', ''), body.get('type', ''), body.get('length', ''),
                     body.get('diameter', ''), body.get('price', 'по запросу'),
                     body.get('description', ''), body.get('sort_order', 0),
-                    body.get('is_active', True)
+                    body.get('is_active', True), body.get('image_url', '')
                 )
             )
             row = cur.fetchone()
@@ -77,12 +77,12 @@ def handler(event: dict, context) -> dict:
                 return {'statusCode': 400, 'headers': headers_resp, 'body': json.dumps({'error': 'Не указан id'})}
             cur.execute(
                 """UPDATE products SET name=%s, type=%s, length=%s, diameter=%s, price=%s,
-                   description=%s, sort_order=%s, is_active=%s WHERE id=%s RETURNING *""",
+                   description=%s, sort_order=%s, is_active=%s, image_url=%s WHERE id=%s RETURNING *""",
                 (
                     body.get('name', ''), body.get('type', ''), body.get('length', ''),
                     body.get('diameter', ''), body.get('price', 'по запросу'),
                     body.get('description', ''), body.get('sort_order', 0),
-                    body.get('is_active', True), product_id
+                    body.get('is_active', True), body.get('image_url', ''), product_id
                 )
             )
             row = cur.fetchone()

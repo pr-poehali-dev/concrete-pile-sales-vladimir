@@ -31,6 +31,7 @@ interface Product {
   description: string;
   sort_order: number;
   is_active: boolean;
+  image_url: string;
 }
 
 interface ProductsTabProps {
@@ -72,6 +73,7 @@ const ProductsTab = ({
           <Table>
             <TableHeader>
               <TableRow>
+                <TableHead>Фото</TableHead>
                 <TableHead>Тип</TableHead>
                 <TableHead>Длина</TableHead>
                 <TableHead>Диаметр</TableHead>
@@ -83,6 +85,15 @@ const ProductsTab = ({
             <TableBody>
               {products.map((p) => (
                 <TableRow key={p.id}>
+                  <TableCell>
+                    {p.image_url ? (
+                      <img src={p.image_url} alt={p.type} className="h-10 w-10 rounded object-cover" />
+                    ) : (
+                      <div className="h-10 w-10 rounded bg-muted flex items-center justify-center">
+                        <Icon name="Image" size={16} className="text-muted-foreground" />
+                      </div>
+                    )}
+                  </TableCell>
                   <TableCell>{p.type}</TableCell>
                   <TableCell>{p.length}</TableCell>
                   <TableCell>{p.diameter}</TableCell>
@@ -161,6 +172,21 @@ const ProductsTab = ({
                   onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
                   rows={3}
                 />
+              </div>
+              <div>
+                <Label className="mb-2 block">Ссылка на фото</Label>
+                <Input
+                  placeholder="https://..."
+                  value={editingProduct.image_url}
+                  onChange={(e) => setEditingProduct({ ...editingProduct, image_url: e.target.value })}
+                />
+                {editingProduct.image_url && (
+                  <img
+                    src={editingProduct.image_url}
+                    alt="Превью"
+                    className="mt-2 h-24 w-24 rounded object-cover border border-border"
+                  />
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <Switch

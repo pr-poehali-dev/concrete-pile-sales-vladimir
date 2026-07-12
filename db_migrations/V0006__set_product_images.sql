@@ -1,0 +1,4 @@
+UPDATE products SET image_url = 'https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/6611d06e-16f5-4526-873e-29c157f4bd81.jpg' WHERE id = 1;
+UPDATE products SET image_url = 'https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/1fe6224c-9732-4cba-b5ae-896dca337c48.jpg' WHERE id = 2;
+UPDATE products SET image_url = 'https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/7fe3faef-c8d8-4cb6-ad50-1638bc0bc154.jpg' WHERE id = 3;
+UPDATE products SET image_url = 'https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/bd9cbc14-ad4d-4039-830e-2d2275da2acc.jpg' WHERE id = 4;

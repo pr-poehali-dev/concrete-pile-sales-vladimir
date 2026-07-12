@@ -11,6 +11,7 @@ interface Product {
   diameter: string;
   price: string;
   description: string;
+  image_url?: string;
 }
 
 interface CatalogSectionProps {
@@ -30,7 +31,16 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
-            <Card key={index} className="group transition-all duration-300 hover:-translate-y-1 bg-card border border-border/80 border-t-2 border-t-accent/70 shadow-md hover:shadow-xl hover:border-accent/60">
+            <Card key={index} className="group transition-all duration-300 hover:-translate-y-1 bg-card border border-border/80 border-t-2 border-t-accent/70 shadow-md hover:shadow-xl hover:border-accent/60 overflow-hidden">
+              {product.image_url && (
+                <div className="h-40 w-full overflow-hidden bg-muted">
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                </div>
+              )}
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <Badge variant="outline" className="text-xs">{product.type}</Badge>

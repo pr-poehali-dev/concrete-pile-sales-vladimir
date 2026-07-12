@@ -25,6 +25,7 @@ interface Product {
   description: string;
   sort_order: number;
   is_active: boolean;
+  image_url: string;
 }
 
 interface Review {
@@ -56,6 +57,7 @@ const emptyProduct: Omit<Product, "id"> = {
   description: "",
   sort_order: 0,
   is_active: true,
+  image_url: "",
 };
 
 const Admin = () => {
