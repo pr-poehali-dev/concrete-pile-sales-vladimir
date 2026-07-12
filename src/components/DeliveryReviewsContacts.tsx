@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -251,7 +252,14 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                       htmlFor="review-consent"
                       className="text-xs text-muted-foreground leading-tight cursor-pointer"
                     >
-                      Согласен на обработку персональных данных
+                      Согласен на{" "}
+                      <Link
+                        to="/privacy-policy"
+                        target="_blank"
+                        className="underline hover:text-accent"
+                      >
+                        обработку персональных данных
+                      </Link>
                     </label>
                   </div>
                   <Button
@@ -365,7 +373,14 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                         htmlFor="lead-consent"
                         className="text-xs text-muted-foreground leading-tight cursor-pointer"
                       >
-                        Согласен на обработку персональных данных
+                        Согласен на{" "}
+                        <Link
+                          to="/privacy-policy"
+                          target="_blank"
+                          className="underline hover:text-accent"
+                        >
+                          обработку персональных данных
+                        </Link>
                       </label>
                     </div>
                     <Button
@@ -442,6 +457,18 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                   </div>
                 </CardContent>
+              </Card>
+
+              <Card className="overflow-hidden">
+                <iframe
+                  src="https://yandex.ru/map-widget/v1/?text=г. Владимир, ул. Промышленный проезд 5Б"
+                  width="100%"
+                  height="220"
+                  frameBorder="0"
+                  loading="lazy"
+                  title="Карта проезда"
+                  className="w-full"
+                />
               </Card>
 
               <Card className="bg-primary text-primary-foreground">

@@ -94,6 +94,10 @@ const Admin = () => {
   const [productDialogOpen, setProductDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | Omit<Product, "id"> | null>(null);
 
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [changingPassword, setChangingPassword] = useState(false);
+
   const checkAuth = async () => {
     const token = getAdminToken();
     if (!token) {
@@ -227,6 +231,32 @@ const Admin = () => {
     loadData();
   };
 
+  const handleChangePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setChangingPassword(true);
+    try {
+      const res = await fetch(`${API_URLS.adminAuth}?action=change_password`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...authHeaders() },
+        body: JSON.stringify({ old_password: oldPassword, new_password: newPassword }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        toast({
+          title: "Ошибка",
+          description: data.error || "Не удалось сменить пароль",
+          variant: "destructive",
+        });
+        return;
+      }
+      toast({ title: "Готово", description: "Пароль успешно изменён" });
+      setOldPassword("");
+      setNewPassword("");
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
   if (authorized === null) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -297,6 +327,7 @@ const Admin = () => {
                 </span>
               )}
             </TabsTrigger>
+            <TabsTrigger value="settings">Настройки</TabsTrigger>
           </TabsList>
 
           <TabsContent value="products" className="mt-6">
@@ -420,6 +451,43 @@ const Admin = () => {
                   ))}
                 </TableBody>
               </Table>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="settings" className="mt-6">
+            <Card className="max-w-md">
+              <CardHeader>
+                <CardTitle>Смена пароля</CardTitle>
+                <CardDescription>
+                  После смены пароля другие сеансы входа будут завершены
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleChangePassword} className="space-y-4">
+                  <div>
+                    <Label className="mb-2 block">Текущий пароль</Label>
+                    <Input
+                      type="password"
+                      value={oldPassword}
+                      onChange={(e) => setOldPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label className="mb-2 block">Новый пароль</Label>
+                    <Input
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      minLength={6}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" disabled={changingPassword}>
+                    {changingPassword ? "Сохранение..." : "Сменить пароль"}
+                  </Button>
+                </form>
+              </CardContent>
             </Card>
           </TabsContent>
         </Tabs>

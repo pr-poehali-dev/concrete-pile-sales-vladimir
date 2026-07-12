@@ -58,8 +58,13 @@ def handler(event: dict, context) -> dict:
         }
 
     headers_resp = {'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json'}
-    dsn = os.environ['DATABASE_URL']
-    conn = psycopg2.connect(dsn)
+
+    try:
+        dsn = os.environ['DATABASE_URL']
+        conn = psycopg2.connect(dsn)
+    except Exception:
+        return {'statusCode': 503, 'headers': headers_resp, 'body': json.dumps({'error': 'Сервис временно недоступен, попробуйте позже'})}
+
     cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     req_headers = event.get('headers', {})
 
@@ -128,6 +133,9 @@ def handler(event: dict, context) -> dict:
             return {'statusCode': 200, 'headers': headers_resp, 'body': json.dumps({'ok': True})}
 
         return {'statusCode': 405, 'headers': headers_resp, 'body': json.dumps({'error': 'Метод не поддерживается'})}
+    except Exception:
+        conn.rollback()
+        return {'statusCode': 500, 'headers': headers_resp, 'body': json.dumps({'error': 'Внутренняя ошибка сервера'})}
     finally:
         cur.close()
         conn.close()

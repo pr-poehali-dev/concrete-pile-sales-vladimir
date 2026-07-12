@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import { Separator } from "@/components/ui/separator";
 
@@ -68,8 +69,11 @@ const Footer = ({ scrollToSection }: FooterProps) => {
           </div>
         </div>
         <Separator className="bg-primary-foreground/20 mb-8" />
-        <div className="text-center text-sm text-primary-foreground/60">
-          © 2026 СваиВладимир. Все права защищены.
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center text-sm text-primary-foreground/60">
+          <span>© 2026 СваиВладимир. Все права защищены.</span>
+          <Link to="/privacy-policy" className="hover:text-accent transition-colors underline">
+            Политика конфиденциальности
+          </Link>
         </div>
       </div>
     </footer>
