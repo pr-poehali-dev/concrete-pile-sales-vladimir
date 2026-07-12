@@ -18,8 +18,8 @@ const Header = ({ scrollToSection }: HeaderProps) => {
       <div className="container flex h-16 items-center justify-between">
         <button onClick={() => handleNav('home')} className="flex items-center">
           <img
-            src="https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/bucket/99f5cecf-7eee-4813-ae33-2814e7946c42.jpg"
-            alt="Сваи — Забивка свай"
+            src="https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/96f480b5-94cd-4199-984c-6786c2efdafc.jpg"
+            alt="СваиВладимир — забивные железобетонные сваи"
             className="h-12 w-auto object-contain rounded-md"
           />
         </button>

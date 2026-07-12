@@ -18,7 +18,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
         className="absolute inset-0 bg-cover bg-center opacity-15 animate-float"
         style={{
           backgroundImage:
-            "url(https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/c2b807c7-cb21-4eb8-b046-80c92f3b6336.jpg)",
+            "url(https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/5e31a8e2-5d18-4464-aec9-da4213357d30.jpg)",
         }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,hsl(var(--accent)/0.12),transparent_50%)]" />
