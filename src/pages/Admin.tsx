@@ -1,31 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Icon from "@/components/ui/icon";
 import { useToast } from "@/hooks/use-toast";
 import {
@@ -35,6 +10,10 @@ import {
   setAdminToken,
   clearAdminToken,
 } from "@/lib/api";
+import AdminLogin from "@/components/admin/AdminLogin";
+import ProductsTab from "@/components/admin/ProductsTab";
+import ReviewsAndLeadsTab from "@/components/admin/ReviewsAndLeadsTab";
+import SettingsTab from "@/components/admin/SettingsTab";
 
 interface Product {
   id: number;
@@ -267,34 +246,14 @@ const Admin = () => {
 
   if (!authorized) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-background px-4">
-        <Card className="w-full max-w-sm">
-          <CardHeader>
-            <CardTitle>Вход в админ-панель</CardTitle>
-            <CardDescription>Введите логин и пароль</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label className="mb-2 block">Логин</Label>
-                <Input value={username} onChange={(e) => setUsername(e.target.value)} required />
-              </div>
-              <div>
-                <Label className="mb-2 block">Пароль</Label>
-                <Input
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full" disabled={loggingIn}>
-                {loggingIn ? "Вход..." : "Войти"}
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
+      <AdminLogin
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        loggingIn={loggingIn}
+        handleLogin={handleLogin}
+      />
     );
   }
 
@@ -330,235 +289,36 @@ const Admin = () => {
             <TabsTrigger value="settings">Настройки</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="products" className="mt-6">
-            <div className="flex justify-end mb-4">
-              <Button
-                onClick={() => {
-                  setEditingProduct({ ...emptyProduct });
-                  setProductDialogOpen(true);
-                }}
-              >
-                <Icon name="Plus" size={18} className="mr-2" />
-                Добавить товар
-              </Button>
-            </div>
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Тип</TableHead>
-                    <TableHead>Длина</TableHead>
-                    <TableHead>Диаметр</TableHead>
-                    <TableHead>Цена</TableHead>
-                    <TableHead>Активен</TableHead>
-                    <TableHead></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {products.map((p) => (
-                    <TableRow key={p.id}>
-                      <TableCell>{p.type}</TableCell>
-                      <TableCell>{p.length}</TableCell>
-                      <TableCell>{p.diameter}</TableCell>
-                      <TableCell>{p.price}</TableCell>
-                      <TableCell>{p.is_active ? "Да" : "Нет"}</TableCell>
-                      <TableCell className="flex gap-2 justify-end">
-                        <Button
-                          size="sm"
-                          variant="outline"
-                          onClick={() => {
-                            setEditingProduct(p);
-                            setProductDialogOpen(true);
-                          }}
-                        >
-                          <Icon name="Pencil" size={16} />
-                        </Button>
-                        <Button size="sm" variant="destructive" onClick={() => deleteProduct(p.id)}>
-                          <Icon name="Trash2" size={16} />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </TabsContent>
+          <ProductsTab
+            products={products}
+            productDialogOpen={productDialogOpen}
+            setProductDialogOpen={setProductDialogOpen}
+            editingProduct={editingProduct}
+            setEditingProduct={setEditingProduct}
+            emptyProduct={emptyProduct}
+            saveProduct={saveProduct}
+            deleteProduct={deleteProduct}
+          />
 
-          <TabsContent value="reviews" className="mt-6">
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Автор</TableHead>
-                    <TableHead>Компания</TableHead>
-                    <TableHead>Текст</TableHead>
-                    <TableHead>Опубликован</TableHead>
-                    <TableHead></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {reviews.map((r) => (
-                    <TableRow key={r.id}>
-                      <TableCell>{r.author}</TableCell>
-                      <TableCell>{r.company}</TableCell>
-                      <TableCell className="max-w-xs truncate">{r.text}</TableCell>
-                      <TableCell>
-                        <Switch checked={r.is_published} onCheckedChange={() => togglePublish(r)} />
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="destructive" onClick={() => deleteReview(r.id)}>
-                          <Icon name="Trash2" size={16} />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </TabsContent>
+          <ReviewsAndLeadsTab
+            reviews={reviews}
+            leads={leads}
+            togglePublish={togglePublish}
+            deleteReview={deleteReview}
+            toggleProcessed={toggleProcessed}
+            deleteLead={deleteLead}
+          />
 
-          <TabsContent value="leads" className="mt-6">
-            <Card>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Имя</TableHead>
-                    <TableHead>Телефон</TableHead>
-                    <TableHead>Комментарий</TableHead>
-                    <TableHead>Обработана</TableHead>
-                    <TableHead></TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {leads.map((l) => (
-                    <TableRow key={l.id} className={l.is_processed ? "opacity-50" : ""}>
-                      <TableCell>{l.name}</TableCell>
-                      <TableCell>
-                        <a href={`tel:${l.phone}`} className="text-accent">
-                          {l.phone}
-                        </a>
-                      </TableCell>
-                      <TableCell className="max-w-xs truncate">{l.comment}</TableCell>
-                      <TableCell>
-                        <Switch checked={l.is_processed} onCheckedChange={() => toggleProcessed(l)} />
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button size="sm" variant="destructive" onClick={() => deleteLead(l.id)}>
-                          <Icon name="Trash2" size={16} />
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="settings" className="mt-6">
-            <Card className="max-w-md">
-              <CardHeader>
-                <CardTitle>Смена пароля</CardTitle>
-                <CardDescription>
-                  После смены пароля другие сеансы входа будут завершены
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleChangePassword} className="space-y-4">
-                  <div>
-                    <Label className="mb-2 block">Текущий пароль</Label>
-                    <Input
-                      type="password"
-                      value={oldPassword}
-                      onChange={(e) => setOldPassword(e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label className="mb-2 block">Новый пароль</Label>
-                    <Input
-                      type="password"
-                      value={newPassword}
-                      onChange={(e) => setNewPassword(e.target.value)}
-                      minLength={6}
-                      required
-                    />
-                  </div>
-                  <Button type="submit" disabled={changingPassword}>
-                    {changingPassword ? "Сохранение..." : "Сменить пароль"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </TabsContent>
+          <SettingsTab
+            oldPassword={oldPassword}
+            setOldPassword={setOldPassword}
+            newPassword={newPassword}
+            setNewPassword={setNewPassword}
+            changingPassword={changingPassword}
+            handleChangePassword={handleChangePassword}
+          />
         </Tabs>
       </div>
-
-      <Dialog open={productDialogOpen} onOpenChange={setProductDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{editingProduct && "id" in editingProduct ? "Редактировать товар" : "Новый товар"}</DialogTitle>
-          </DialogHeader>
-          {editingProduct && (
-            <div className="space-y-4">
-              <div>
-                <Label className="mb-2 block">Название</Label>
-                <Input
-                  value={editingProduct.name}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, name: e.target.value })}
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label className="mb-2 block">Тип (маркировка)</Label>
-                  <Input
-                    value={editingProduct.type}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, type: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block">Цена</Label>
-                  <Input
-                    value={editingProduct.price}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, price: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block">Длина</Label>
-                  <Input
-                    value={editingProduct.length}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, length: e.target.value })}
-                  />
-                </div>
-                <div>
-                  <Label className="mb-2 block">Диаметр</Label>
-                  <Input
-                    value={editingProduct.diameter}
-                    onChange={(e) => setEditingProduct({ ...editingProduct, diameter: e.target.value })}
-                  />
-                </div>
-              </div>
-              <div>
-                <Label className="mb-2 block">Описание</Label>
-                <Textarea
-                  value={editingProduct.description}
-                  onChange={(e) => setEditingProduct({ ...editingProduct, description: e.target.value })}
-                  rows={3}
-                />
-              </div>
-              <div className="flex items-center gap-2">
-                <Switch
-                  checked={editingProduct.is_active}
-                  onCheckedChange={(checked) => setEditingProduct({ ...editingProduct, is_active: checked })}
-                />
-                <Label>Показывать на сайте</Label>
-              </div>
-              <Button className="w-full" onClick={saveProduct}>
-                Сохранить
-              </Button>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 };
