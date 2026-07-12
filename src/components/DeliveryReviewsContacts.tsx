@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import { Checkbox } from "@/components/ui/checkbox";
 import Icon from "@/components/ui/icon";
 import { API_URLS } from "@/lib/api";
 import { useToast } from "@/hooks/use-toast";
@@ -37,17 +38,30 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [text, setText] = useState("");
+  const [website, setWebsite] = useState("");
+  const [consent, setConsent] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   const [leadName, setLeadName] = useState("");
   const [leadPhone, setLeadPhone] = useState("");
   const [leadComment, setLeadComment] = useState("");
+  const [leadWebsite, setLeadWebsite] = useState("");
+  const [leadConsent, setLeadConsent] = useState(false);
   const [leadSubmitting, setLeadSubmitting] = useState(false);
   const [leadSubmitted, setLeadSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (website) return;
+    if (!consent) {
+      toast({
+        title: "Нужно согласие",
+        description: "Подтвердите согласие на обработку персональных данных",
+        variant: "destructive",
+      });
+      return;
+    }
     setSubmitting(true);
     try {
       const res = await fetch(API_URLS.reviews, {
@@ -70,6 +84,15 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
 
   const handleLeadSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (leadWebsite) return;
+    if (!leadConsent) {
+      toast({
+        title: "Нужно согласие",
+        description: "Подтвердите согласие на обработку персональных данных",
+        variant: "destructive",
+      });
+      return;
+    }
     setLeadSubmitting(true);
     try {
       const res = await fetch(API_URLS.leads, {
@@ -86,6 +109,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
       setLeadName("");
       setLeadPhone("");
       setLeadComment("");
+      setLeadConsent(false);
     } catch {
       toast({
         title: "Ошибка",
@@ -103,6 +127,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
       setSubmitted(false);
       setName("");
       setText("");
+      setConsent(false);
     }
   };
 
@@ -206,6 +231,29 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                       required
                     />
                   </div>
+                  <input
+                    type="text"
+                    name="website"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    className="absolute -left-[9999px] w-px h-px opacity-0"
+                    aria-hidden="true"
+                  />
+                  <div className="flex items-start gap-2">
+                    <Checkbox
+                      id="review-consent"
+                      checked={consent}
+                      onCheckedChange={(checked) => setConsent(checked === true)}
+                    />
+                    <label
+                      htmlFor="review-consent"
+                      className="text-xs text-muted-foreground leading-tight cursor-pointer"
+                    >
+                      Согласен на обработку персональных данных
+                    </label>
+                  </div>
                   <Button
                     type="submit"
                     className="w-full bg-accent hover:bg-accent/90"
@@ -296,6 +344,29 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                         value={leadComment}
                         onChange={(e) => setLeadComment(e.target.value)}
                       />
+                    </div>
+                    <input
+                      type="text"
+                      name="website"
+                      value={leadWebsite}
+                      onChange={(e) => setLeadWebsite(e.target.value)}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      className="absolute -left-[9999px] w-px h-px opacity-0"
+                      aria-hidden="true"
+                    />
+                    <div className="flex items-start gap-2">
+                      <Checkbox
+                        id="lead-consent"
+                        checked={leadConsent}
+                        onCheckedChange={(checked) => setLeadConsent(checked === true)}
+                      />
+                      <label
+                        htmlFor="lead-consent"
+                        className="text-xs text-muted-foreground leading-tight cursor-pointer"
+                      >
+                        Согласен на обработку персональных данных
+                      </label>
                     </div>
                     <Button
                       type="submit"

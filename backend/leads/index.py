@@ -1,7 +1,14 @@
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
 import psycopg2
 import psycopg2.extras
+
+
+NOTIFY_EMAIL = 'vladsvai33@mail.ru'
+SMTP_HOST = 'smtp.mail.ru'
+SMTP_PORT = 465
 
 
 def check_auth(cur, headers) -> bool:
@@ -12,8 +19,30 @@ def check_auth(cur, headers) -> bool:
     return cur.fetchone() is not None
 
 
+def get_client_ip(event: dict) -> str:
+    return (
+        event.get('requestContext', {})
+        .get('identity', {})
+        .get('sourceIp', 'unknown')
+    )
+
+
+def send_notification(name: str, phone: str, comment: str):
+    password = os.environ.get('SMTP_PASSWORD')
+    if not password:
+        return
+    body = f"Новая заявка с сайта\n\nИмя: {name}\nТелефон: {phone}\nКомментарий: {comment or '-'}"
+    msg = MIMEText(body, _charset='utf-8')
+    msg['Subject'] = 'Новая заявка с сайта СваиВладимир'
+    msg['From'] = NOTIFY_EMAIL
+    msg['To'] = NOTIFY_EMAIL
+    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=10) as server:
+        server.login(NOTIFY_EMAIL, password)
+        server.sendmail(NOTIFY_EMAIL, [NOTIFY_EMAIL], msg.as_string())
+
+
 def handler(event: dict, context) -> dict:
-    """Заявки с формы обратной связи. POST публичный (отправка заявки), GET/PUT/DELETE только для админа"""
+    """Заявки с формы обратной связи. POST публичный (отправка заявки, с защитой от спама и email-уведомлением), GET/PUT/DELETE только для админа"""
     method = event.get('httpMethod', 'GET')
 
     if method == 'OPTIONS':
@@ -41,12 +70,29 @@ def handler(event: dict, context) -> dict:
             phone = body.get('phone', '').strip()
             if not name or not phone:
                 return {'statusCode': 400, 'headers': headers_resp, 'body': json.dumps({'error': 'Заполните имя и телефон'})}
+
+            ip = get_client_ip(event)
             cur.execute(
-                """INSERT INTO leads (name, phone, comment, source) VALUES (%s, %s, %s, %s) RETURNING *""",
-                (name, phone, body.get('comment', ''), body.get('source', 'contact_form'))
+                "SELECT COUNT(*) as cnt FROM leads WHERE source_ip = %s AND created_at > NOW() - INTERVAL '10 minutes'",
+                (ip,)
+            )
+            recent_count = cur.fetchone()['cnt']
+            if recent_count >= 3:
+                return {'statusCode': 429, 'headers': headers_resp, 'body': json.dumps({'error': 'Слишком много заявок. Попробуйте позже'})}
+
+            comment = body.get('comment', '')
+            cur.execute(
+                """INSERT INTO leads (name, phone, comment, source, source_ip) VALUES (%s, %s, %s, %s, %s) RETURNING *""",
+                (name, phone, comment, body.get('source', 'contact_form'), ip)
             )
             row = cur.fetchone()
             conn.commit()
+
+            try:
+                send_notification(name, phone, comment)
+            except Exception:
+                pass
+
             return {'statusCode': 200, 'headers': headers_resp, 'body': json.dumps(row, default=str)}
 
         if not check_auth(cur, req_headers):

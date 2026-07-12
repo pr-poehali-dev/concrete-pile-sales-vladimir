@@ -1,0 +1,2 @@
+ALTER TABLE leads ADD COLUMN source_ip VARCHAR(64);
+ALTER TABLE reviews ADD COLUMN source_ip VARCHAR(64);

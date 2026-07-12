@@ -12,6 +12,14 @@ def check_auth(cur, headers) -> bool:
     return cur.fetchone() is not None
 
 
+def get_client_ip(event: dict) -> str:
+    return (
+        event.get('requestContext', {})
+        .get('identity', {})
+        .get('sourceIp', 'unknown')
+    )
+
+
 def handler(event: dict, context) -> dict:
     """Отзывы клиентов: публичное добавление и чтение опубликованных, админ управляет публикацией"""
     method = event.get('httpMethod', 'GET')
@@ -52,12 +60,22 @@ def handler(event: dict, context) -> dict:
             text = body.get('text', '').strip()
             if not author or not text:
                 return {'statusCode': 400, 'headers': headers_resp, 'body': json.dumps({'error': 'Заполните имя и текст отзыва'})}
+
+            ip = get_client_ip(event)
             cur.execute(
-                """INSERT INTO reviews (company, author, position, text, rating, is_published)
-                   VALUES (%s, %s, %s, %s, %s, FALSE) RETURNING *""",
+                "SELECT COUNT(*) as cnt FROM reviews WHERE source_ip = %s AND created_at > NOW() - INTERVAL '10 minutes'",
+                (ip,)
+            )
+            recent_count = cur.fetchone()['cnt']
+            if recent_count >= 3:
+                return {'statusCode': 429, 'headers': headers_resp, 'body': json.dumps({'error': 'Слишком много отзывов. Попробуйте позже'})}
+
+            cur.execute(
+                """INSERT INTO reviews (company, author, position, text, rating, is_published, source_ip)
+                   VALUES (%s, %s, %s, %s, %s, FALSE, %s) RETURNING *""",
                 (
                     body.get('company', ''), author, body.get('position', ''),
-                    text, body.get('rating', 5)
+                    text, body.get('rating', 5), ip
                 )
             )
             row = cur.fetchone()

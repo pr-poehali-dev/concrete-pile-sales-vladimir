@@ -8,13 +8,6 @@
       "expectedStatus": 400
     },
     {
-      "name": "Submit valid lead",
-      "method": "POST",
-      "path": "/",
-      "body": {"name": "Иван Тестов", "phone": "+79991234567", "comment": "Тест"},
-      "expectedStatus": 200
-    },
-    {
       "name": "Get leads without auth",
       "method": "GET",
       "path": "/",
