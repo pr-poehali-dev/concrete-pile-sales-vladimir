@@ -54,11 +54,11 @@ const Footer = ({ scrollToSection }: FooterProps) => {
                 +7 (915) 777-15-50
               </a>
               <a
-                href="mailto:vladsvai@bk.ru"
+                href="mailto:vladsvai33@mail.ru"
                 className="flex items-center gap-2 text-primary-foreground/80 hover:text-accent transition-colors"
               >
                 <Icon name="Mail" size={16} />
-                vladsvai@bk.ru
+                vladsvai33@mail.ru
               </a>
               <p className="flex items-center gap-2 text-primary-foreground/80">
                 <Icon name="MapPin" size={16} />
