@@ -1,0 +1,23 @@
+{
+  "tests": [
+    {
+      "name": "Get published reviews",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Submit review without required fields",
+      "method": "POST",
+      "path": "/",
+      "body": {"text": ""},
+      "expectedStatus": 400
+    },
+    {
+      "name": "Get all reviews without auth",
+      "method": "GET",
+      "path": "/?all=1",
+      "expectedStatus": 401
+    }
+  ]
+}

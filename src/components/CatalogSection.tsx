@@ -10,7 +10,6 @@ interface Product {
   length: string;
   diameter: string;
   price: string;
-  priceValue: number;
   description: string;
 }
 

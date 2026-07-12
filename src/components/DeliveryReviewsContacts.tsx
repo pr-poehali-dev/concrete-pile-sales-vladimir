@@ -17,6 +17,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import Icon from "@/components/ui/icon";
+import { API_URLS } from "@/lib/api";
+import { useToast } from "@/hooks/use-toast";
 
 interface Review {
   company: string;
@@ -31,14 +33,68 @@ interface DeliveryReviewsContactsProps {
 }
 
 const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
+  const { toast } = useToast();
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [text, setText] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [leadName, setLeadName] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
+  const [leadComment, setLeadComment] = useState("");
+  const [leadSubmitting, setLeadSubmitting] = useState(false);
+  const [leadSubmitted, setLeadSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitting(true);
+    try {
+      const res = await fetch(API_URLS.reviews, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ author: name, text, rating: 5 }),
+      });
+      if (!res.ok) throw new Error();
+      setSubmitted(true);
+    } catch {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось отправить отзыв. Попробуйте позже.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleLeadSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLeadSubmitting(true);
+    try {
+      const res = await fetch(API_URLS.leads, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: leadName,
+          phone: leadPhone,
+          comment: leadComment,
+        }),
+      });
+      if (!res.ok) throw new Error();
+      setLeadSubmitted(true);
+      setLeadName("");
+      setLeadPhone("");
+      setLeadComment("");
+    } catch {
+      toast({
+        title: "Ошибка",
+        description: "Не удалось отправить заявку. Попробуйте позже.",
+        variant: "destructive",
+      });
+    } finally {
+      setLeadSubmitting(false);
+    }
   };
 
   const handleClose = (isOpen: boolean) => {
@@ -154,9 +210,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     type="submit"
                     className="w-full bg-accent hover:bg-accent/90"
                     size="lg"
+                    disabled={submitting}
                   >
                     <Icon name="Send" size={18} className="mr-2" />
-                    Отправить
+                    {submitting ? "Отправка..." : "Отправить"}
                   </Button>
                 </form>
               )}
@@ -182,36 +239,75 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <form className="space-y-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Ваше имя
-                    </label>
-                    <Input placeholder="Иван Иванов" />
+                {leadSubmitted ? (
+                  <div className="text-center py-8">
+                    <div className="p-4 bg-accent/10 rounded-full w-fit mx-auto mb-4">
+                      <Icon
+                        name="CheckCircle"
+                        size={40}
+                        className="text-accent"
+                      />
+                    </div>
+                    <h3 className="text-lg font-semibold mb-2">
+                      Спасибо за заявку!
+                    </h3>
+                    <p className="text-muted-foreground mb-6">
+                      Мы свяжемся с вами в течение 15 минут.
+                    </p>
+                    <Button
+                      onClick={() => setLeadSubmitted(false)}
+                      className="bg-accent hover:bg-accent/90"
+                    >
+                      Отправить ещё одну
+                    </Button>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Телефон
-                    </label>
-                    <Input type="tel" placeholder="+7 (___) ___-__-__" />
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">
-                      Комментарий (необязательно)
-                    </label>
-                    <Textarea
-                      placeholder="Расскажите о вашем проекте..."
-                      rows={4}
-                    />
-                  </div>
-                  <Button
-                    className="w-full bg-accent text-accent-foreground font-bold text-base shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
-                    size="lg"
-                  >
-                    <Icon name="Send" size={20} className="mr-2" />
-                    Отправить заявку
-                  </Button>
-                </form>
+                ) : (
+                  <form className="space-y-4" onSubmit={handleLeadSubmit}>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        Ваше имя
+                      </label>
+                      <Input
+                        placeholder="Иван Иванов"
+                        value={leadName}
+                        onChange={(e) => setLeadName(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        Телефон
+                      </label>
+                      <Input
+                        type="tel"
+                        placeholder="+7 (___) ___-__-__"
+                        value={leadPhone}
+                        onChange={(e) => setLeadPhone(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">
+                        Комментарий (необязательно)
+                      </label>
+                      <Textarea
+                        placeholder="Расскажите о вашем проекте..."
+                        rows={4}
+                        value={leadComment}
+                        onChange={(e) => setLeadComment(e.target.value)}
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      className="w-full bg-accent text-accent-foreground font-bold text-base shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
+                      size="lg"
+                      disabled={leadSubmitting}
+                    >
+                      <Icon name="Send" size={20} className="mr-2" />
+                      {leadSubmitting ? "Отправка..." : "Отправить заявку"}
+                    </Button>
+                  </form>
+                )}
               </CardContent>
             </Card>
 
