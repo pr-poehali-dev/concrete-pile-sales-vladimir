@@ -30,7 +30,7 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product, index) => (
-            <Card key={index} className="transition-all duration-300 hover:scale-105 hover:-translate-y-2 bg-[#2e2e2e] border-[#3a3a3a] shadow-[4px_4px_0px_#1a1a1a,8px_8px_0px_#111] hover:shadow-[6px_6px_0px_rgba(234,179,8,0.3),12px_12px_0px_rgba(234,179,8,0.1)] cursor-pointer" style={{transform: 'perspective(800px) rotateX(1deg)'}}>
+            <Card key={index} className="group transition-all duration-300 hover:-translate-y-1 bg-card border border-border/80 border-t-2 border-t-accent/70 shadow-md hover:shadow-xl hover:border-accent/60">
               <CardHeader>
                 <div className="flex items-start justify-between mb-2">
                   <Badge variant="outline" className="text-xs">{product.type}</Badge>
@@ -53,7 +53,7 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
                 <Separator className="my-4" />
                 <div className="flex items-center justify-between">
                   <span className="text-2xl font-bold text-accent">{product.price}</span>
-                  <Button size="sm" onClick={() => scrollToSection('contacts')} className="bg-accent text-accent-foreground shadow-[3px_3px_0px_#92660a] hover:shadow-[1px_1px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[3px] active:translate-y-[3px] transition-all duration-150 font-bold">Заказать</Button>
+                  <Button size="sm" onClick={() => scrollToSection('contacts')} className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold">Заказать</Button>
                 </div>
               </CardContent>
             </Card>

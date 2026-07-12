@@ -21,7 +21,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
             "url(https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/files/c2b807c7-cb21-4eb8-b046-80c92f3b6336.jpg)",
         }}
       />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(249,115,22,0.1),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,hsl(var(--accent)/0.12),transparent_50%)]" />
       <div className="container relative z-10 text-center py-20">
         <Badge className="mb-4 bg-accent text-accent-foreground hover:bg-accent/90">
           Работаем с 2010 года
@@ -35,7 +35,7 @@ const HeroSection = ({ scrollToSection }: HeroSectionProps) => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
           <Button
             size="lg"
-            className="bg-accent text-accent-foreground font-bold text-base px-8 py-6 shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
+            className="bg-accent text-accent-foreground font-semibold text-base px-8 py-6 shadow-lg hover:bg-accent/90 hover:shadow-xl transition-all duration-200"
             onClick={() => scrollToSection("catalog")}
           >
             <Icon name="Package" size={20} className="mr-2" />

@@ -144,7 +144,8 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {reviews.map((review, index) => (
-              <Card key={index} className="transition-all duration-300 hover:scale-105 hover:-translate-y-2 bg-[#2e2e2e] border-[#3a3a3a] shadow-[4px_4px_0px_#1a1a1a,8px_8px_0px_#111] hover:shadow-[6px_6px_0px_rgba(234,179,8,0.3),12px_12px_0px_rgba(234,179,8,0.1)] cursor-pointer" style={{transform: 'perspective(800px) rotateX(1deg)'}}>
+              <Card key={index} className="relative transition-all duration-300 hover:-translate-y-1 bg-card border border-border/80 border-l-2 border-l-accent/70 shadow-md hover:shadow-xl">
+                <Icon name="Quote" size={28} className="absolute top-4 right-4 text-muted-foreground/20" />
                 <CardHeader>
                   <div className="flex items-center gap-1 mb-3">
                     {[...Array(review.rating)].map((_, i) => (
@@ -173,7 +174,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
             <Button
               size="lg"
               onClick={() => setOpen(true)}
-              className="bg-accent text-accent-foreground font-bold text-base px-8 py-6 shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
+              className="bg-accent text-accent-foreground font-semibold text-base px-8 py-6 shadow-lg hover:bg-accent/90 hover:shadow-xl transition-all duration-200"
             >
               <Icon name="MessageSquarePlus" size={22} className="mr-2" />
               Оставить отзыв
@@ -385,7 +386,7 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     </div>
                     <Button
                       type="submit"
-                      className="w-full bg-accent text-accent-foreground font-bold text-base shadow-[4px_4px_0px_#92660a] hover:shadow-[2px_2px_0px_#92660a] hover:translate-x-[2px] hover:translate-y-[2px] active:shadow-none active:translate-x-[4px] active:translate-y-[4px] transition-all duration-150 uppercase tracking-widest"
+                      className="w-full bg-accent text-accent-foreground font-semibold text-base shadow-lg hover:bg-accent/90 hover:shadow-xl transition-all duration-200"
                       size="lg"
                       disabled={leadSubmitting}
                     >
