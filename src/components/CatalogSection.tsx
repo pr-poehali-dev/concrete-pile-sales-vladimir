@@ -37,7 +37,7 @@ const CatalogSection = ({ products, scrollToSection }: CatalogSectionProps) => {
                   <img
                     src={product.image_url}
                     alt={product.name}
-                    className="h-full w-full object-cover blur-[2px] scale-105 transition-transform duration-300 group-hover:scale-110"
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card/40 via-transparent to-transparent" />
                 </div>
