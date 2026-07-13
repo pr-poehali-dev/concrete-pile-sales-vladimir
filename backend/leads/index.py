@@ -96,8 +96,8 @@ def handler(event: dict, context) -> dict:
 
             try:
                 send_notification(name, phone, comment)
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Email notification failed: {e}")
 
             return {'statusCode': 200, 'headers': headers_resp, 'body': json.dumps(row, default=str)}
 
