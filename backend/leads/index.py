@@ -6,7 +6,7 @@ import psycopg2
 import psycopg2.extras
 
 
-NOTIFY_EMAIL = 'vladsvai33@mail.ru'
+NOTIFY_EMAIL = 'vladsvai@bk.ru'
 SMTP_HOST = 'smtp.mail.ru'
 SMTP_PORT = 465
 

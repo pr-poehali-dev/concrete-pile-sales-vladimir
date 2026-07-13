@@ -426,10 +426,10 @@ const DeliveryReviewsContacts = ({ reviews }: DeliveryReviewsContactsProps) => {
                     <div>
                       <p className="font-semibold">Email</p>
                       <a
-                        href="mailto:vladsvai33@mail.ru"
+                        href="mailto:vladsvai@bk.ru"
                         className="text-foreground font-medium hover:text-accent transition-colors"
                       >
-                        vladsvai33@mail.ru
+                        vladsvai@bk.ru
                       </a>
                     </div>
                   </div>
