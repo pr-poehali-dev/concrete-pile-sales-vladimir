@@ -1,0 +1,1 @@
+UPDATE products SET image_url = 'https://cdn.poehali.dev/projects/18820996-abf2-4c3a-9ca8-6f4059ff29cd/bucket/86adefdf-edd4-4755-b01f-41b80892c172.jpg' WHERE id = 1;
