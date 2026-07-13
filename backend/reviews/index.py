@@ -1,7 +1,29 @@
 import json
 import os
+import smtplib
+from email.mime.text import MIMEText
 import psycopg2
 import psycopg2.extras
+
+
+NOTIFY_EMAIL = 'vladsvai@bk.ru'
+SMTP_LOGIN = 'vladsvai33@mail.ru'
+SMTP_HOST = 'smtp.mail.ru'
+SMTP_PORT = 465
+
+
+def send_notification(company: str, author: str, text: str, rating: int):
+    password = os.environ.get('SMTP_PASSWORD')
+    if not password:
+        return
+    body = f"Новый отзыв на сайте\n\nКомпания: {company or '-'}\nАвтор: {author}\nОценка: {rating}\nТекст: {text}"
+    msg = MIMEText(body, _charset='utf-8')
+    msg['Subject'] = 'Новый отзыв на сайте СваиВладимир'
+    msg['From'] = SMTP_LOGIN
+    msg['To'] = NOTIFY_EMAIL
+    with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=10) as server:
+        server.login(SMTP_LOGIN, password)
+        server.sendmail(SMTP_LOGIN, [NOTIFY_EMAIL], msg.as_string())
 
 
 def check_auth(cur, headers) -> bool:
@@ -85,6 +107,12 @@ def handler(event: dict, context) -> dict:
             )
             row = cur.fetchone()
             conn.commit()
+
+            try:
+                send_notification(body.get('company', ''), author, text, body.get('rating', 5))
+            except Exception:
+                pass
+
             return {'statusCode': 200, 'headers': headers_resp, 'body': json.dumps(row, default=str)}
 
         if not check_auth(cur, req_headers):

@@ -7,6 +7,7 @@ import psycopg2.extras
 
 
 NOTIFY_EMAIL = 'vladsvai@bk.ru'
+SMTP_LOGIN = 'vladsvai33@mail.ru'
 SMTP_HOST = 'smtp.mail.ru'
 SMTP_PORT = 465
 
@@ -34,11 +35,11 @@ def send_notification(name: str, phone: str, comment: str):
     body = f"Новая заявка с сайта\n\nИмя: {name}\nТелефон: {phone}\nКомментарий: {comment or '-'}"
     msg = MIMEText(body, _charset='utf-8')
     msg['Subject'] = 'Новая заявка с сайта СваиВладимир'
-    msg['From'] = NOTIFY_EMAIL
+    msg['From'] = SMTP_LOGIN
     msg['To'] = NOTIFY_EMAIL
     with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=10) as server:
-        server.login(NOTIFY_EMAIL, password)
-        server.sendmail(NOTIFY_EMAIL, [NOTIFY_EMAIL], msg.as_string())
+        server.login(SMTP_LOGIN, password)
+        server.sendmail(SMTP_LOGIN, [NOTIFY_EMAIL], msg.as_string())
 
 
 def handler(event: dict, context) -> dict:
