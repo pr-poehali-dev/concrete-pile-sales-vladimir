@@ -107,6 +107,7 @@ const Admin = () => {
         fetch(`${API_URLS.reviews}?all=1`, { headers: authHeaders() }),
         fetch(API_URLS.leads, { headers: authHeaders() }),
       ]);
+      if (!pRes.ok || !rRes.ok || !lRes.ok) throw new Error();
       setProducts(await pRes.json());
       setReviews(await rRes.json());
       setLeads(await lRes.json());
@@ -178,37 +179,57 @@ const Admin = () => {
 
   const deleteProduct = async (id: number) => {
     if (!confirm("Удалить товар?")) return;
-    await fetch(`${API_URLS.products}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    const res = await fetch(`${API_URLS.products}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    if (!res.ok) {
+      toast({ title: "Ошибка", description: "Не удалось удалить товар", variant: "destructive" });
+      return;
+    }
     loadData();
   };
 
   const togglePublish = async (review: Review) => {
-    await fetch(API_URLS.reviews, {
+    const res = await fetch(API_URLS.reviews, {
       method: "PUT",
       headers: { "Content-Type": "application/json", ...authHeaders() },
       body: JSON.stringify({ ...review, is_published: !review.is_published }),
     });
+    if (!res.ok) {
+      toast({ title: "Ошибка", description: "Не удалось изменить статус отзыва", variant: "destructive" });
+      return;
+    }
     loadData();
   };
 
   const deleteReview = async (id: number) => {
     if (!confirm("Удалить отзыв?")) return;
-    await fetch(`${API_URLS.reviews}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    const res = await fetch(`${API_URLS.reviews}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    if (!res.ok) {
+      toast({ title: "Ошибка", description: "Не удалось удалить отзыв", variant: "destructive" });
+      return;
+    }
     loadData();
   };
 
   const toggleProcessed = async (lead: Lead) => {
-    await fetch(API_URLS.leads, {
+    const res = await fetch(API_URLS.leads, {
       method: "PUT",
       headers: { "Content-Type": "application/json", ...authHeaders() },
       body: JSON.stringify({ id: lead.id, is_processed: !lead.is_processed }),
     });
+    if (!res.ok) {
+      toast({ title: "Ошибка", description: "Не удалось изменить статус заявки", variant: "destructive" });
+      return;
+    }
     loadData();
   };
 
   const deleteLead = async (id: number) => {
     if (!confirm("Удалить заявку?")) return;
-    await fetch(`${API_URLS.leads}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    const res = await fetch(`${API_URLS.leads}?id=${id}`, { method: "DELETE", headers: authHeaders() });
+    if (!res.ok) {
+      toast({ title: "Ошибка", description: "Не удалось удалить заявку", variant: "destructive" });
+      return;
+    }
     loadData();
   };
 

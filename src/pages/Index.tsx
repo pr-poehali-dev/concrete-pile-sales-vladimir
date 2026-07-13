@@ -31,12 +31,12 @@ const Index = () => {
 
   useEffect(() => {
     fetch(API_URLS.products)
-      .then((res) => res.json())
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => setProducts(Array.isArray(data) ? data : []))
       .catch(() => setProducts([]));
 
     fetch(API_URLS.reviews)
-      .then((res) => res.json())
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => setReviews(Array.isArray(data) ? data : []))
       .catch(() => setReviews([]));
   }, []);
